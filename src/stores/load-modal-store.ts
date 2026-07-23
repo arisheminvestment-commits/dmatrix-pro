@@ -68,6 +68,8 @@ export default class LoadModalStore {
             resetBotBuilderStrategy: action.bound,
             setDashboardStrategies: action.bound,
             updateListStrategies: action.bound,
+            getDashboardStrategies: action.bound,
+            loadCustomPresetStrategy: action.bound,
             onToggleDeleteDialog: action,
             loadStrategyOnModalRecentPreview: action,
             loadStrategyOnBotBuilder: action,
@@ -159,7 +161,59 @@ export default class LoadModalStore {
 
     getDashboardStrategies = async () => {
         const recent_strategies = await getSavedWorkspaces();
-        this.dashboard_strategies = recent_strategies;
+
+        if (!recent_strategies || recent_strategies.length === 0) {
+            try {
+                const response = await fetch('/strategies/dmatrixpro.xml');
+                const xmlText = await response.text();
+
+                if (xmlText) {
+                    const defaultStrategy: TStrategy = {
+                        id: uuidv4(),
+                        name: 'DMatrix Pro Strategy',
+                        xml: xmlText,
+                        save_type: save_types.LOCAL,
+                    };
+
+                    this.dashboard_strategies = [defaultStrategy];
+                    this.selected_strategy_id = defaultStrategy.id;
+                    return;
+                }
+            } catch (error) {
+                console.error('Failed to fetch default dmatrixpro.xml strategy:', error);
+            }
+        }
+
+        this.dashboard_strategies = recent_strategies || [];
+    };
+
+    loadCustomPresetStrategy = async (strategyFileName = 'dmatrixpro.xml') => {
+        try {
+            this.setOpenButtonDisabled(true);
+            const response = await fetch(`/strategies/${strategyFileName}`);
+            const xmlText = await response.text();
+
+            if (!xmlText) return;
+
+            await load({
+                block_string: xmlText,
+                file_name: strategyFileName.replace('.xml', ''),
+                workspace: window.Blockly?.derivWorkspace,
+                from: save_types.LOCAL,
+                drop_event: null,
+                strategy_id: uuidv4(),
+                showIncompatibleStrategyDialog: false,
+                show_snackbar: true,
+            });
+
+            if (window.Blockly?.derivWorkspace) {
+                window.Blockly.derivWorkspace.strategy_to_load = xmlText;
+            }
+        } catch (error) {
+            console.error('Failed to load custom strategy preset:', error);
+        } finally {
+            this.setOpenButtonDisabled(false);
+        }
     };
 
     onDriveOpen = async () => {
