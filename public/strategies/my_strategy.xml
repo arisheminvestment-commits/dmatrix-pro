@@ -2,16 +2,16 @@
   <block type="trade_definition" id="_{conObvf4HR+=4lgJJ{" deletable="false" x="0" y="60">
     <statement name="TRADE_OPTIONS">
       <block type="trade_definition_market" id="H~W)Ac5Yiasvplo~!j]V" deletable="false" movable="false">
-        <field name="MARKET_LIST">na</field>
-        <field name="SUBMARKET_LIST">na</field>
-        <field name="SYMBOL_LIST">na</field>
+        <field name="MARKET_LIST">synthetic_index</field>
+        <field name="SUBMARKET_LIST">random_index</field>
+        <field name="SYMBOL_LIST">1HZ100V</field>
         <next>
           <block type="trade_definition_tradetype" id="[HLz^{}V=}`RxbJAGWWS" deletable="false" movable="false">
-            <field name="TRADETYPECAT_LIST">na</field>
-            <field name="TRADETYPE_LIST">na</field>
+            <field name="TRADETYPECAT_LIST">risefall</field>
+            <field name="TRADETYPE_LIST">risefall</field>
             <next>
               <block type="trade_definition_contracttype" id="6du`7Ia%%3zLQ;Q9VWjl" deletable="false" movable="false">
-                <field name="TYPE_LIST">na</field>
+                <field name="TYPE_LIST">both</field>
                 <next>
                   <block type="trade_definition_candleinterval" id="9nO=?DOuH9[5A_Ee^a]]" deletable="false" movable="false">
                     <field name="CANDLEINTERVAL_LIST">60</field>
@@ -36,10 +36,10 @@
     <statement name="SUBMARKET">
       <block type="trade_definition_tradeoptions" id="Xxr-daRR#erE}bZX-O3w">
         <mutation xmlns="http://www.w3.org/1999/xhtml" has_first_barrier="false" has_second_barrier="false" has_prediction="false"></mutation>
-        <field name="DURATIONTYPE_LIST">na</field>
+        <field name="DURATIONTYPE_LIST">t</field>
         <value name="DURATION">
           <shadow type="math_number_positive" id="u(lS9gCUyKw82e8;!c#:">
-            <field name="NUM">0</field>
+            <field name="NUM">5</field>
           </shadow>
         </value>
         <value name="AMOUNT">
@@ -67,7 +67,7 @@
   <block type="before_purchase" id="*gj9AJ?qiCZfL[7OqIO!" deletable="false" x="0" y="658">
     <statement name="BEFOREPURCHASE_STACK">
       <block type="purchase" id="f7STBc=8=:PzCX_YHfj4">
-        <field name="PURCHASE_LIST">na</field>
+        <field name="PURCHASE_LIST">CALL</field>
       </block>
     </statement>
   </block>
