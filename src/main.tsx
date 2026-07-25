@@ -1,39 +1,50 @@
 import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { configure } from 'mobx';
-import { AuthWrapper } from './app/AuthWrapper';
-import { initI18n } from './components/shared/i18n/init-i18n';
-import { performVersionCheck } from './components/shared/utils/version-check';
-import {
-    applyBrandFontFromConfig,
-    applyBrandStyleFromConfig,
-    applyDocumentTitle,
-    applyFavicon,
-} from './components/shared/utils/branding';
-import './app/app-root.scss';
+import { observer } from 'mobx-react-lite';
+import { NavLink } from 'react-router-dom';
+import classNames from 'classnames';
 
-// Perform initialization steps before rendering
-configure({
-    enforceActions: 'always',
-    computedRequiresReaction: true,
-    reactionRequiresObservable: true,
-    observableRequiresReaction: true,
+export const MenuItems = observer(() => {
+    return (
+        <div className='app-header__menu-items'>
+            <NavLink
+                to='/dashboard'
+                className={({ isActive }) => classNames('app-header__menu-item', { 'app-header__menu-item--active': isActive })}
+            >
+                Dashboard
+            </NavLink>
+            <NavLink
+                to='/bot-builder'
+                className={({ isActive }) => classNames('app-header__menu-item', { 'app-header__menu-item--active': isActive })}
+            >
+                Bot Builder
+            </NavLink>
+            <NavLink
+                to='/charts'
+                className={({ isActive }) => classNames('app-header__menu-item', { 'app-header__menu-item--active': isActive })}
+            >
+                Charts
+            </NavLink>
+            <NavLink
+                to='/tutorials'
+                className={({ isActive }) => classNames('app-header__menu-item', { 'app-header__menu-item--active': isActive })}
+            >
+                Tutorials
+            </NavLink>
+        </div>
+    );
 });
 
-initI18n();
-performVersionCheck();
-applyDocumentTitle();
-applyFavicon();
-applyBrandStyleFromConfig();
-applyBrandFontFromConfig();
+export const TradershubLink = observer(() => {
+    return null;
+});
 
-const rootElement = document.getElementById('root');
+// Define type including the component namespace
+type MenuItemsType = typeof MenuItems & {
+    TradershubLink: typeof TradershubLink;
+};
 
-if (rootElement) {
-    const root = ReactDOM.createRoot(rootElement);
-    root.render(
-        <React.StrictMode>
-            <AuthWrapper />
-        </React.StrictMode>
-    );
-}
+// Assign the static TradershubLink property
+(MenuItems as MenuItemsType).TradershubLink = TradershubLink;
+
+// Default export using the specific type
+export default MenuItems as MenuItemsType;
