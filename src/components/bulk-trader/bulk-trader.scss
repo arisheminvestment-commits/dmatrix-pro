@@ -32,13 +32,24 @@
         gap: 8px;
     }
 
-    /* Important styling hook to create the distinctive dark blue dropdown look seen in image_10.png */
-    .bulk-trader__strategy-group {
-        .quill-dropdown__input {
-            background-color: #0d1e3a; /* Dark blue background specific to strategy */
-            border-color: #2a3f6a;
-            color: var(--brand-white);
-        }
+    /* Important style hook to stylize the HTML Select elements to look like platform dropdowns */
+    .bulk-trader__select {
+        background-color: transparent;
+        color: var(--brand-white);
+        border: 1px solid #2a3f6a;
+        border-radius: 4px;
+        padding: 8px 12px;
+        font-size: 14px;
+        appearance: none; /* Hide default select arrow */
+        -webkit-appearance: none;
+        cursor: pointer;
+    }
+
+    /* Important style hook to stylize the complex strategy select element from image_10.png */
+    .bulk-trader__strategy-select {
+        @extend .bulk-trader__select; /* Inherit base select styles */
+        background-color: #0d1e3a; /* Dark blue background specific to strategy seen in mockup */
+        border-color: #2a3f6a;
     }
 
     /* Right Analysis Panel (Percentages and E/O Grid) */
