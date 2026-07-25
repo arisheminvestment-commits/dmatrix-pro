@@ -1,12 +1,13 @@
+// src/main.tsx
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { configure } from 'mobx'; // Essential import restored
+import { configure } from 'mobx'; // RESTORED essential MobX configure import
 import { AuthWrapper } from './app/AuthWrapper';
 import './app/app-root.scss';
 
-// Perform essential initialization steps before rendering.
-// Without this global MobX configuration block, your app reliance on MobX state
-// for component visibility (tabs) will cause chaotic re-renders and the UI will severely overlap.
+// NEW: Global MobX configuration to manage application state changes.
+// Without this block, relying on MobX state to switch between Applications (Tabs) 
+// will cause chaotic non-rendering and component overlap errors.
 configure({
     enforceActions: 'always',
     computedRequiresReaction: true,
