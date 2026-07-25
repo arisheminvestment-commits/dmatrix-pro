@@ -1,5 +1,6 @@
 import React, { lazy, Suspense, useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
+import { configure } from 'mobx'; // RESTORED essential MobX configure import
 import { ToastContainer } from 'react-toastify';
 import AuthLoadingWrapper from '@/components/auth-loading-wrapper';
 import { botNotification } from '@/components/bot-notification/bot-notification';
@@ -26,7 +27,7 @@ import './app.scss';
 import 'react-toastify/dist/ReactToastify.css';
 import '../components/bot-notification/bot-notification.scss';
 
-// NEW: Lazy load the Bulk Trader application component skeleton
+// NEW: Lazy load the Bulk Trader application component using the CORRECT path
 const BulkTrader = lazy(() => import('@/components/bulk-trader/BulkTrader'));
 
 // App Builder live-preview branding listener. Mounted only in the preview deployment
@@ -35,6 +36,15 @@ const BulkTrader = lazy(() => import('@/components/bulk-trader/BulkTrader'));
 // builds (where the BFF strips src/preview/ entirely).
 const PreviewBranding =
     process.env.NEXT_PUBLIC_APP_BUILD === 'true' ? lazy(() => import('../preview/preview-branding')) : null;
+
+// RESTORED: Configure MobX to enforce actions.
+// Without this global configuration block, chaotic re-renders and the UI error seen in image_6.png will occur.
+configure({
+    enforceActions: 'always',
+    computedRequiresReaction: true,
+    reactionRequiresObservable: true,
+    observableRequiresReaction: true,
+});
 
 const AppContent = observer(() => {
     const [is_api_initialized, setIsApiInitialized] = React.useState(false);
@@ -193,7 +203,7 @@ const AppContent = observer(() => {
                 <Suspense fallback={null}>
                     <PreviewBranding />
                 </Suspense>
-            )} {/* <-- Fixed missing parenthesis ')' here --> */}
+            )}
             {is_loading ? (
                 <ChunkLoader message={localize('Initializing Deriv Bot account...')} />
             ) : (
@@ -203,7 +213,7 @@ const AppContent = observer(() => {
                         <div className='bot-dashboard bot' data-testid='dt_bot_dashboard'>
                             <Audio />
                             <Main />
-                            {/* NEW: Conditionally render BulkTrader or BotBuilder based on MobX state */}
+                            {/* NEW: Conditionally render BulkTrader or BotBuilder inside Suspense wrapper */}
                             {is_bulk_trader_active ? (
                                 <Suspense fallback={<ChunkLoader message={localize('Loading Bulk Trader...')} />}>
                                     <BulkTrader />
