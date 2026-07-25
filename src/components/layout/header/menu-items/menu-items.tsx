@@ -1,28 +1,42 @@
+import React from 'react';
 import { observer } from 'mobx-react-lite';
+import { NavLink } from 'react-router-dom';
+import classNames from 'classnames';
 
 export const MenuItems = observer(() => {
     return (
-        <div className='app-header__menu-items' style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <a href='/' className='app-header__menu-item'>
-                <span>Dashboard</span>
-            </a>
-
-            <a href='/bot-builder' className='app-header__menu-item'>
-                <span>Bot Builder</span>
-            </a>
-
-            <a href='/charts' className='app-header__menu-item'>
-                <span>Charts</span>
-            </a>
-
-            <a href='/tutorials' className='app-header__menu-item'>
-                <span>Tutorials</span>
-            </a>
-
-            {/* --- BULK TRADER TAB --- */}
-            <a href='/bulk-trader' className='app-header__menu-item'>
-                <span>Bulk Trader</span>
-            </a>
+        <div className='app-header__menu-items'>
+            <NavLink
+                to='/dashboard'
+                className={({ isActive }) => classNames('app-header__menu-item', { 'app-header__menu-item--active': isActive })}
+            >
+                Dashboard
+            </NavLink>
+            <NavLink
+                to='/bot-builder'
+                className={({ isActive }) => classNames('app-header__menu-item', { 'app-header__menu-item--active': isActive })}
+            >
+                Bot Builder
+            </NavLink>
+            <NavLink
+                to='/charts'
+                className={({ isActive }) => classNames('app-header__menu-item', { 'app-header__menu-item--active': isActive })}
+            >
+                Charts
+            </NavLink>
+            <NavLink
+                to='/tutorials'
+                className={({ isActive }) => classNames('app-header__menu-item', { 'app-header__menu-item--active': isActive })}
+            >
+                Tutorials
+            </NavLink>
+            {/* ADDED Bulk Trader */}
+            <NavLink
+                to='/bulk-trader'
+                className={({ isActive }) => classNames('app-header__menu-item', { 'app-header__menu-item--active': isActive })}
+            >
+                Bulk Trader
+            </NavLink>
         </div>
     );
 });
@@ -31,12 +45,13 @@ export const TradershubLink = observer(() => {
     return null;
 });
 
-// Create a namespace for MenuItems to include TradershubLink
+// Create a namespace definition to satisfy MobX and TypeScript structure
 type MenuItemsType = typeof MenuItems & {
     TradershubLink: typeof TradershubLink;
 };
 
-// Assign TradershubLink to MenuItems
+// Properly assign the namespace component
 (MenuItems as MenuItemsType).TradershubLink = TradershubLink;
 
+// Explicitly export using the corrected type
 export default MenuItems as MenuItemsType;
