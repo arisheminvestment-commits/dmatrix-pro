@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import classNames from 'classnames';
 import { observer } from 'mobx-react-lite';
-import './bulk-trader.scss'; // Link the contained style
+import './bulk-trader.scss'; // Link the contained style in the same folder
 
 export const BulkTrader = observer(() => {
     return (
