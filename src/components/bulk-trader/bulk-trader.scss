@@ -1,15 +1,17 @@
-/* Controlled, encapsulated styles for the Bulk Trader application module */
+/* Encapsulated SCSS Module for the Bulk Trader Application Module */
+/* These styles ensure the layout replicates the statistics and grid pattern from image_10.png */
+
 .bulk-trader__wrapper {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - var(--header-height) - var(--controls-height) - var(--menu-height) - 40px); /* Adjust to fill available height below navigation menu */
+    height: calc(100vh - var(--header-height) - var(--controls-height) - 40px); /* Adjust to fill available height */
     width: 100%;
-    background-color: var(--brand-dark-grey); /* Dark background theme */
+    background-color: var(--brand-dark-grey); /* Inherit dark background */
     padding: 24px;
     box-sizing: border-box;
     overflow: hidden;
 
-    /* Primary Application Content Area */
+    /* Main Content Layout Area */
     .bulk-trader__content {
         display: flex;
         flex: 1;
@@ -21,9 +23,9 @@
     .bulk-trader__inputs-panel {
         display: flex;
         flex-direction: column;
-        width: 38%; /* Matches visual weight seen in image_10.png */
+        width: 38%; /* Matches image_10.png mockup weight */
         gap: 20px;
-        overflow-y: auto; /* Enable scrolling for inputs if necessary */
+        overflow-y: auto;
     }
 
     .bulk-trader__input-group {
@@ -32,11 +34,16 @@
         gap: 8px;
     }
 
-    /* Important style hook to stylize the HTML Select elements to look like platform dropdowns */
+    /* Special input group for the complex Strategy selection mechanisms seen in mockup */
+    .bulk-trader__strategy-group {
+        position: relative;
+    }
+
+    /* Stylizing standard HTML Select elements to match the Quill component design */
     .bulk-trader__select {
         background-color: transparent;
         color: var(--brand-white);
-        border: 1px solid #2a3f6a;
+        border: 1px solid var(--brand-secondary);
         border-radius: 4px;
         padding: 8px 12px;
         font-size: 14px;
@@ -45,10 +52,10 @@
         cursor: pointer;
     }
 
-    /* Important style hook to stylize the complex strategy select element from image_10.png */
+    /* Stylizing the complex strategy select element from image_10.png */
     .bulk-trader__strategy-select {
-        @extend .bulk-trader__select; /* Inherit base select styles */
-        background-color: #0d1e3a; /* Dark blue background specific to strategy seen in mockup */
+        @extend .bulk-trader__select; /* Inherit select styles */
+        background-color: #0d1e3a; /* Unique dark blue Strategy background from image_10.png mockup */
         border-color: #2a3f6a;
     }
 
@@ -56,7 +63,7 @@
     .bulk-trader__analysis-panel {
         display: flex;
         flex: 1;
-        background-color: #1a1c22; /* Slightly different dark panel for stats */
+        background-color: #1a1c22; /* Slightly offset dark panel for statistics and patterns */
         border-radius: 8px;
         padding: 24px;
         overflow-y: auto;
@@ -69,7 +76,7 @@
         width: 100%;
     }
 
-    /* The complex grid of digit statistic rings and percentages from image_10.png */
+    /* Upper percentage display grid */
     .bulk-trader__stat-header {
         display: grid;
         grid-template-columns: repeat(10, 1fr); /* 10 numbered boxes across */
@@ -82,31 +89,31 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        border: 2px solid var(--brand-dark-grey); /* Ring style */
-        border-radius: 50%; /* Ring shape */
-        width: 60px; /* Ring size */
+        border: 2px solid var(--brand-dark-grey); /* Outer ring style from image_10.png */
+        border-radius: 50%; /* Make it a ring */
+        width: 60px; /* Box size */
         height: 60px;
-        margin: 0 auto; /* Center within column */
+        margin: 0 auto; /* Center in column */
         text-align: center;
     }
 
-    /* Placeholder for the Odd/Even grid pattern seen below percentages in image_10.png */
+    /* Lower Grid Placeholder (Pattern Grid from image_10.png is WHITE backed) */
     .bulk-trader__grid-placeholder {
         display: grid;
-        grid-template-columns: repeat(20, 1fr); /* placeholder for many narrow columns */
+        grid-template-columns: repeat(20, 1fr); /* placeholder grid weight */
         gap: 4px;
-        background-color: var(--brand-white); /* Pattern grid from image_10.png is white-backed */
+        background-color: var(--brand-white); /* grid pattern area backing */
         border-radius: 4px;
         padding: 16px;
     }
 
-    /* Bottom Control Bar Area (where the red delta button lives) */
+    /* Complex Control Bar Area (where the red delta button lives) */
     .bulk-trader__bottom-controls {
         display: flex;
         align-items: center;
         justify-content: space-between;
         background-color: #1a1c22;
-        border-top: 1px solid #2a3f6a;
+        border-top: 1px solid var(--brand-dark-grey);
         margin-top: 32px;
         padding: 16px 24px;
         border-radius: 8px 8px 0 0;
@@ -119,7 +126,12 @@
         color: var(--brand-white);
     }
 
-    /* Unique Red Triangle 'Bulk Odd' button seen in image_10.png */
+    /* Placeholder styles for unique icons (refer to image_10.png mockup) */
+    .bulk-trader__icon-cart {
+        font-size: 1.2rem;
+    }
+
+    /* Unique Red Triangle 'Bulk Odd' button from image_10.png mockup */
     .bulk-trader__delta-button {
         background-color: var(--brand-danger);
         color: var(--brand-white);
@@ -128,37 +140,22 @@
         border-radius: 4px;
     }
 
-    /* Integration with the generic bottom bar inherited from the parent Bot interface */
+    /* Integrated Dashboard Controls (Main Run Button Area) */
     .bot-dashboard__controls {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
+        justify-content: flex-start;
         background-color: var(--brand-dark-grey);
-        border-top: 1px solid #2a3f6a;
+        border-top: 1px solid var(--brand-dark-grey);
         padding: 16px 24px;
-        position: absolute; /* Replaces main controls bar */
+        position: absolute; /* Integrate into generic bottom bar area */
         bottom: 0;
         left: 0;
         width: 100%;
         box-sizing: border-box;
     }
 
-    .bot-dashboard__controls-left {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        color: var(--brand-white);
-    }
-
-    /* Teal Green Run/Stop button style seen in design */
+    /* Specialty style hook to override generic Quill button color with mockup green */
     .quill-button--variant-contained[style*='background-color: var(--brand-success)'] {
-        background-color: #37c7ab !important; /* Specific Teal Green color hook from mockup */
-    }
-
-    .bulk-trader__profile-placeholder {
-        background-color: #2a3f6a;
-        color: var(--brand-white);
-        padding: 4px 16px;
-        border-radius: 4px;
+        background-color: #37c7ab !important; /* The precise teal green color from the mockup */
     }
 }
