@@ -193,7 +193,7 @@ const AppContent = observer(() => {
                 <Suspense fallback={null}>
                     <PreviewBranding />
                 </Suspense>
-            }
+            )} {/* <-- Fixed missing parenthesis ')' here --> */}
             {is_loading ? (
                 <ChunkLoader message={localize('Initializing Deriv Bot account...')} />
             ) : (
