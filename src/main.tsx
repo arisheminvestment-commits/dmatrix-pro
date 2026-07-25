@@ -1,32 +1,103 @@
-import { configure } from 'mobx';
+import React, { useState, lazy, Suspense } from 'react';
 import ReactDOM from 'react-dom/client';
-import { AuthWrapper } from './app/AuthWrapper';
-// Removed AnalyticsInitializer import - analytics dependency removed
-// See migrate-docs/ANALYTICS_IMPLEMENTATION_GUIDE.md for re-implementation
-import {
-    applyBrandFontFromConfig,
-    applyDocumentTitle,
-    applyFaviconFromLogo,
-    applyPrimaryColorFromConfig,
-} from './utils/document-branding';
-import { performVersionCheck } from './utils/version-check';
-import './styles/index.scss';
+import BulkTrader from './components/BulkTrader';
 
-// Configure MobX to handle multiple instances in production builds
-configure({ isolateGlobalState: true });
+export const TAB_IDS = ['dashboard', 'bot_builder', 'charts', 'tutorials', 'bulk_trader'];
 
-// Perform version check FIRST - before any other operations
-performVersionCheck();
+const AppWrapper: React.FC = () => {
+    const [activeTab, setActiveTab] = useState<number>(0);
 
-// Apply deploy-time document branding (tab title, favicon, web font, and primary color).
-applyDocumentTitle();
-applyFaviconFromLogo();
-applyBrandFontFromConfig();
-applyPrimaryColorFromConfig();
+    const handleTabChange = (index: number) => {
+        setActiveTab(index);
+    };
 
-// Removed AnalyticsInitializer() call - analytics dependency removed
+    return (
+        <div className='app-container'>
+            {/* Main Navigation Tab Bar */}
+            <div className='tabs-wrapper' style={{ display: 'flex', gap: '12px', padding: '12px 24px', backgroundColor: '#161c24', borderBottom: '1px solid #212b36' }}>
+                <button
+                    onClick={() => handleTabChange(0)}
+                    style={{
+                        padding: '8px 16px',
+                        background: activeTab === 0 ? '#212b36' : 'transparent',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '6px',
+                        cursor: 'pointer',
+                        fontWeight: activeTab === 0 ? 'bold' : 'normal',
+                    }}
+                >
+                    Dashboard
+                </button>
+                <button
+                    onClick={() => handleTabChange(1)}
+                    style={{
+                        padding: '8px 16px',
+                        background: activeTab === 1 ? '#212b36' : 'transparent',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '6px',
+                        cursor: 'pointer',
+                        fontWeight: activeTab === 1 ? 'bold' : 'normal',
+                    }}
+                >
+                    Bot Builder
+                </button>
+                <button
+                    onClick={() => handleTabChange(2)}
+                    style={{
+                        padding: '8px 16px',
+                        background: activeTab === 2 ? '#212b36' : 'transparent',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '6px',
+                        cursor: 'pointer',
+                        fontWeight: activeTab === 2 ? 'bold' : 'normal',
+                    }}
+                >
+                    Charts
+                </button>
+                <button
+                    onClick={() => handleTabChange(3)}
+                    style={{
+                        padding: '8px 16px',
+                        background: activeTab === 3 ? '#212b36' : 'transparent',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '6px',
+                        cursor: 'pointer',
+                        fontWeight: activeTab === 3 ? 'bold' : 'normal',
+                    }}
+                >
+                    Tutorials
+                </button>
+                {/* Bulk Trader placed right next to Tutorials */}
+                <button
+                    onClick={() => handleTabChange(4)}
+                    style={{
+                        padding: '8px 16px',
+                        background: activeTab === 4 ? '#212b36' : 'transparent',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '6px',
+                        cursor: 'pointer',
+                        fontWeight: activeTab === 4 ? 'bold' : 'normal',
+                    }}
+                >
+                    Bulk Trader
+                </button>
+            </div>
 
-// App Builder preview branding (incl. PREVIEW_READY handshake) is handled by the
-// src/preview/ listener, mounted from app-content only in the preview deployment
-// (NEXT_PUBLIC_APP_BUILD === 'true') and stripped from standalone partner deploys.
-ReactDOM.createRoot(document.getElementById('root')!).render(<AuthWrapper />);
+            {/* Tab Views */}
+            <div className='tab-content'>
+                {activeTab === 0 && <div>Dashboard View</div>}
+                {activeTab === 1 && <div>Bot Builder View</div>}
+                {activeTab === 2 && <div>Charts View</div>}
+                {activeTab === 3 && <div>Tutorials View</div>}
+                {activeTab === 4 && <BulkTrader />}
+            </div>
+        </div>
+    );
+};
+
+export default AppWrapper;
