@@ -1,0 +1,180 @@
+/* Bulk Trader Main Layout */
+.bulk-trader-container {
+    display: flex;
+    gap: 20px;
+    padding: 24px;
+    background-color: #120e24;
+    color: #ffffff;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Left Panel - Inputs & Actions */
+.bulk-controls-panel {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    background: rgba(255, 255, 255, 0.03);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.input-group-row {
+    display: flex;
+    gap: 16px;
+}
+
+.input-field {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.input-field.full-width {
+    width: 100%;
+}
+
+.input-field label {
+    font-size: 0.85rem;
+    color: #a0a0b8;
+    font-weight: 500;
+}
+
+.input-field input,
+.input-field select {
+    background-color: #0b2238;
+    border: 1px solid #1a3d5c;
+    color: #ffffff;
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s ease;
+}
+
+.input-field input:focus,
+.input-field select:focus {
+    border-color: #00a896;
+}
+
+/* Action Buttons Grid */
+.bulk-actions-row {
+    display: flex;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.btn-bulk-even {
+    flex: 1;
+    background: #238b68;
+    color: #ffffff;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-bulk-ai {
+    background: #4a5568;
+    color: #a0aec0;
+    border: none;
+    padding: 14px 16px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+.btn-bulk-odd {
+    flex: 1;
+    background: #a8384a;
+    color: #ffffff;
+    border: none;
+    padding: 14px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+/* Right Panel - Stats & History */
+.bulk-analysis-panel {
+    flex: 1.2;
+    background: #eef2f5;
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    color: #120e24;
+}
+
+.digits-stat-bar {
+    display: flex;
+    justify-content: space-between;
+    gap: 6px;
+}
+
+.digit-circle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 52px;
+    background: #181c24;
+    border-radius: 24px;
+    color: #ffffff;
+    border: 2px solid transparent;
+}
+
+.digit-circle.highlight {
+    border-color: #3182ce;
+    background: #2b3648;
+}
+
+.digit-num {
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+.digit-percent {
+    font-size: 0.65rem;
+    color: #a0aec0;
+}
+
+/* History Grid */
+.history-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 12px;
+    background: #f7fafc;
+    border-radius: 8px;
+}
+
+.history-row {
+    display: flex;
+    gap: 16px;
+    font-weight: 700;
+    font-size: 1rem;
+}
+
+.history-row .even {
+    color: #38a169;
+}
+
+.history-row .odd {
+    color: #e53e3e;
+}
