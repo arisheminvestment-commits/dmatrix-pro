@@ -48,10 +48,7 @@ const router = createBrowserRouter(
                 </Suspense>
             }
         >
-            {/* Index renders the default Bot Builder workspace */}
             <Route index element={<AppRoot />} />
-            
-            {/* Additional routes rendered inside the main Layout shell */}
             <Route path='bulk-trader' element={<BulkTrader />} />
             <Route path='preview' element={<AppRoot />} />
         </Route>
