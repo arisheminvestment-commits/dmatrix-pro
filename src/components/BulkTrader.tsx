@@ -11,7 +11,6 @@ export const BulkTrader: React.FC = () => {
     const [isTrading, setIsTrading] = useState(false);
     const [logs, setLogs] = useState<string[]>([]);
 
-    // Expanded list of all Deriv Synthetic Markets
     const marketOptions = [
         { symbol: 'R_10', name: 'Volatility 10 Index' },
         { symbol: 'R_25', name: 'Volatility 25 Index' },
@@ -187,7 +186,7 @@ export const BulkTrader: React.FC = () => {
                     </button>
                 </div>
 
-                {/* Execution Log Console */}
+                {/* Console Log Output */}
                 <div style={{ marginTop: '12px', background: '#080612', padding: '12px', borderRadius: '6px', height: '120px', overflowY: 'auto', border: '1px solid rgba(255,255,255,0.05)' }}>
                     <div style={{ fontSize: '0.75rem', color: '#8c9ba5', marginBottom: '6px', fontWeight: 600 }}>Console Output:</div>
                     {logs.length === 0 ? (
@@ -214,7 +213,7 @@ export const BulkTrader: React.FC = () => {
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', padding: '12px', background: '#f7fafc', borderRadius: '8px' }}>
-                    <div style={{ display: 'flex', gap: '16px', fontWeight 700 }}>
+                    <div style={{ display: 'flex', gap: '16px', fontWeight: 700 }}>
                         <span style={{ color: '#38a169' }}>E</span> <span style={{ color: '#e53e3e' }}>O</span> <span style={{ color: '#e53e3e' }}>O</span> <span style={{ color: '#38a169' }}>E</span> <span style={{ color: '#38a169' }}>E</span> <span style={{ color: '#38a169' }}>E</span> <span style={{ color: '#38a169' }}>E</span> <span style={{ color: '#38a169' }}>E</span> <span style={{ color: '#e53e3e' }}>O</span> <span style={{ color: '#38a169' }}>E</span>
                     </div>
                 </div>
