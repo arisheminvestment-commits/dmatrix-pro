@@ -1,44 +1,28 @@
 import { observer } from 'mobx-react-lite';
-import { NavLink } from 'react-router-dom';
 
 export const MenuItems = observer(() => {
     return (
-        <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-            <NavLink 
-                to='/' 
-                className={({ isActive }) => `app-header__menu-item ${isActive ? 'app-header__menu-item--active' : ''}`}
-            >
+        <div className='app-header__menu-items' style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+            <a href='/' className='app-header__menu-item'>
                 <span>Dashboard</span>
-            </NavLink>
+            </a>
 
-            <NavLink 
-                to='/bot-builder' 
-                className={({ isActive }) => `app-header__menu-item ${isActive ? 'app-header__menu-item--active' : ''}`}
-            >
+            <a href='/bot-builder' className='app-header__menu-item'>
                 <span>Bot Builder</span>
-            </NavLink>
+            </a>
 
-            <NavLink 
-                to='/charts' 
-                className={({ isActive }) => `app-header__menu-item ${isActive ? 'app-header__menu-item--active' : ''}`}
-            >
+            <a href='/charts' className='app-header__menu-item'>
                 <span>Charts</span>
-            </NavLink>
+            </a>
 
-            <NavLink 
-                to='/tutorials' 
-                className={({ isActive }) => `app-header__menu-item ${isActive ? 'app-header__menu-item--active' : ''}`}
-            >
+            <a href='/tutorials' className='app-header__menu-item'>
                 <span>Tutorials</span>
-            </NavLink>
+            </a>
 
             {/* --- BULK TRADER TAB --- */}
-            <NavLink 
-                to='/bulk-trader' 
-                className={({ isActive }) => `app-header__menu-item ${isActive ? 'app-header__menu-item--active' : ''}`}
-            >
+            <a href='/bulk-trader' className='app-header__menu-item'>
                 <span>Bulk Trader</span>
-            </NavLink>
+            </a>
         </div>
     );
 });
