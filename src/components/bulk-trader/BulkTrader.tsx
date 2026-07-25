@@ -83,7 +83,7 @@ export const BulkTrader = observer(() => {
                 {/* Left Column: All Input Settings (Markets, Strategies, Stakes) */}
                 <div className='bulk-trader__inputs-panel'>
                     
-                    {/* Market Selector: Alternatives uses stylized HTML Select with <Text> Label */}
+                    {/* Market Selector: Uses stylized HTML Select with <Text> Label */}
                     <div className='bulk-trader__input-group'>
                         <Text size='sm'>{localize('Market')}</Text>
                         <select
@@ -95,7 +95,7 @@ export const BulkTrader = observer(() => {
                         </select>
                     </div>
 
-                    {/* Stake Selector: Alternatives uses stylized HTML Select with <Text> Label */}
+                    {/* Stake Selector: Uses stylized HTML Select with <Text> Label */}
                     <div className='bulk-trader__input-group'>
                         <Text size='sm'>{localize('Stake (USD)')}</Text>
                         <select
@@ -108,7 +108,7 @@ export const BulkTrader = observer(() => {
                         </select>
                     </div>
 
-                    {/* Duration Selector: Alternatives uses stylized HTML Select with <Text> Label */}
+                    {/* Duration Selector: Uses stylized HTML Select with <Text> Label */}
                     <div className='bulk-trader__input-group'>
                         <Text size='sm'>{localize('Duration (ticks)')}</Text>
                         <select
@@ -121,7 +121,7 @@ export const BulkTrader = observer(() => {
                         </select>
                     </div>
 
-                    {/* Number of Bulk Trades: Alternatives uses stylized HTML Select with <Text> Label */}
+                    {/* Number of Bulk Trades: Uses stylized HTML Select with <Text> Label */}
                     <div className='bulk-trader__input-group'>
                         <Text size='sm'>{localize('No. of bulk trades')}</Text>
                         <select
@@ -184,7 +184,7 @@ export const BulkTrader = observer(() => {
                 </div>
             </div>
             
-            {/* The primary platform run/stop action button, integrated into the bottom bar */}
+            {/* The primary platform run/stop action button, integrated into the generic bottom bar */}
             <div className='bot-dashboard__controls'>
                 <div className='bot-dashboard__controls-left'>
                     <Button
@@ -197,6 +197,7 @@ export const BulkTrader = observer(() => {
                     >
                         {is_running ? localize('Stop') : localize('Run')}
                     </Button>
+                    {/* Status area placeholders (matching bottom bar of image_10.png) */}
                     <Text size='sm'>{localize('Bot is not running')}</Text>
                     <Text size='sm'>0</Text>
                     <Text size='sm'>0</Text>
