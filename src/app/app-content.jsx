@@ -26,6 +26,9 @@ import './app.scss';
 import 'react-toastify/dist/ReactToastify.css';
 import '../components/bot-notification/bot-notification.scss';
 
+// NEW: Lazy load the Bulk Trader application component skeleton
+const BulkTrader = lazy(() => import('@/components/bulk-trader/BulkTrader'));
+
 // App Builder live-preview branding listener. Mounted only in the preview deployment
 // (NEXT_PUBLIC_APP_BUILD === 'true'); the inline check is constant-folded by rsbuild so
 // the import — and all of src/preview/ — is dead-code-eliminated from standalone partner
@@ -40,6 +43,9 @@ const AppContent = observer(() => {
     const store = useStore();
     const { app, transactions, common, client } = store;
     const { is_dark_mode_on } = useThemeSwitcher();
+
+    // NEW: Observe the active app state from MobX to determine when Bulk Trader is selected.
+    const is_bulk_trader_active = app.active_app === 'BulkTrader';
 
     const { recovered_transactions, recoverPendingContracts } = transactions;
     const is_subscribed_to_msg_listener = React.useRef(false);
@@ -187,7 +193,7 @@ const AppContent = observer(() => {
                 <Suspense fallback={null}>
                     <PreviewBranding />
                 </Suspense>
-            )}
+            }
             {is_loading ? (
                 <ChunkLoader message={localize('Initializing Deriv Bot account...')} />
             ) : (
@@ -197,7 +203,14 @@ const AppContent = observer(() => {
                         <div className='bot-dashboard bot' data-testid='dt_bot_dashboard'>
                             <Audio />
                             <Main />
-                            <BotBuilder />
+                            {/* NEW: Conditionally render BulkTrader or BotBuilder based on MobX state */}
+                            {is_bulk_trader_active ? (
+                                <Suspense fallback={<ChunkLoader message={localize('Loading Bulk Trader...')} />}>
+                                    <BulkTrader />
+                                </Suspense>
+                            ) : (
+                                <BotBuilder />
+                            )}
                             <BotStopped />
                             <TransactionDetailsModal />
                             <ToastContainer limit={3} draggable={false} />
