@@ -43,3 +43,106 @@
 strong {
     font-weight: bold;
 }
+
+/* ==========================================
+   DERIV-STYLE APP LAYOUT, TABS & FOOTER 
+   ================================---------- */
+
+html, body, #root {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0f172a;
+    font-family: 'Inter', sans-serif;
+    color: #ffffff;
+}
+
+.deriv-app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100%;
+}
+
+/* HEADER & NAVIGATION TABS */
+.deriv-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #1e293b;
+    border-bottom: 1px solid #334155;
+    padding: 0 24px;
+    height: 60px;
+
+    .deriv-logo-area {
+        font-weight: 700;
+        font-size: 16px;
+        color: #f63cce;
+    }
+
+    .deriv-nav-tabs {
+        display: flex;
+        height: 100%;
+        gap: 12px;
+
+        .tab-item {
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            padding: 0 16px;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: color 0.2s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+
+            &:hover {
+                color: #ffffff;
+            }
+
+            &.active {
+                color: #ffffff;
+                border-bottom: 2px solid #f63cce;
+            }
+        }
+    }
+}
+
+/* WORKSPACE CONTAINER */
+.deriv-workspace {
+    flex: 1;
+    padding: 24px;
+    background-color: #0f172a;
+    display: flex;
+    flex-direction: column;
+
+    .workspace-inner {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+/* ANCHORED RISK DISCLAIMER FOOTER */
+.deriv-footer {
+    background-color: #090d16;
+    border-top: 1px solid #1e293b;
+    padding: 14px 24px;
+    display: flex;
+    justify-content: flex-start; // Bottom-left alignment
+
+    .risk-disclaimer-text {
+        font-size: 11px;
+        line-height: 1.4;
+        color: #64748b;
+        max-width: 900px;
+
+        strong {
+            color: #94a3b8;
+        }
+    }
+}
