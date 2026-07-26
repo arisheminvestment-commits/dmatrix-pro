@@ -23,7 +23,6 @@ const StoreProvider: React.FC<TStoreProvider> = ({ children, mockStore }) => {
 
         if (!store && !initializingStore.current) {
             initializingStore.current = true;
-            // If the store is mocked for testing purposes, then return the mocked value.
             if (mockStore) {
                 setStore(mockStore);
             } else {
@@ -32,14 +31,19 @@ const StoreProvider: React.FC<TStoreProvider> = ({ children, mockStore }) => {
         }
     }, [store, mockStore]);
 
-    if (!store && mockStore) return null;
+    // THE FIX: Strictly block rendering until the store exists
+    if (!store) return null; // (Optional: Replace 'null' with a <LoadingSpinner /> component)
 
     return <StoreContext.Provider value={store}>{children}</StoreContext.Provider>;
 };
 
 const useStore = () => {
     const store = useContext(StoreContext);
-
+    
+    if (!store) {
+        throw new Error('useStore must be used within StoreProvider');
+    }
+    
     return store as RootStore;
 };
 
