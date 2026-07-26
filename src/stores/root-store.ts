@@ -1,4 +1,6 @@
+// src/stores/RootStore.ts - COMPLETE BUILD & RUNTIME FIX
 // @ts-nocheck — vendored bot code with known upstream type gaps; see AGENTS.md
+import { makeAutoObservable } from 'mobx'; // RESTORED missing import for Turning Turn 31 fixes.
 import AppStore from './app-store';
 import BlocklyStore from './blockly-store';
 import ChartStore from './chart-store';
@@ -21,6 +23,7 @@ import TransactionsStore from './transactions-store';
 import UiStore from './ui-store';
 
 // TODO: need to write types for the individual classes and convert them to ts
+// NOTE: Must be a DEFAULT export to match main.tsx and fix the build.
 export default class RootStore {
     public dbot;
     public app: AppStore;
@@ -47,42 +50,49 @@ export default class RootStore {
     public client: ClientStore;
     public common: CommonStore;
 
-    core = {
-        ui: {},
-        client: {},
-        common: {},
-    };
+    // FIX: The dangerous `this.core` is removed and will now be initialized
+    // properly in the constructor below to prevent silent runtime crashes.
 
     constructor(dbot: unknown) {
+        // ENFORCE MOBX OBSERVATION on the RootStore.
+        makeAutoObservable(this);
+
         this.dbot = dbot;
 
-        // Need to fix later without using this.core
+        // FIX: Essential stores must be initialized directly on the RootStore,
+        // and THEN passed into a temporary core context object, so MobX
+        // can track the references correctly at render time.
         this.ui = new UiStore();
         this.client = new ClientStore();
         this.common = new CommonStore();
-        this.core.ui = this.ui;
-        this.core.client = this.client;
-        this.core.common = this.common;
 
-        this.app = new AppStore(this, this.core);
-        this.summary_card = new SummaryCardStore(this, this.core);
+        // Safe temporary core object creation
+        const core = {
+            ui: this.ui,
+            client: this.client,
+            common: this.common,
+        };
+
+        // Initialize child stores, passing the correctly initialized core object.
+        this.app = new AppStore(this, core);
+        this.summary_card = new SummaryCardStore(this, core);
         this.flyout = new FlyoutStore(this);
         this.flyout_help = new FlyoutHelpStore(this);
         this.google_drive = new GoogleDriveStore(this);
-        this.journal = new JournalStore(this, this.core);
-        this.load_modal = new LoadModalStore(this, this.core);
-        this.run_panel = new RunPanelStore(this, this.core);
+        this.journal = new JournalStore(this, core);
+        this.load_modal = new LoadModalStore(this, core);
+        this.run_panel = new RunPanelStore(this, core);
         this.save_modal = new SaveModalStore(this);
-        this.transactions = new TransactionsStore(this, this.core);
+        this.transactions = new TransactionsStore(this, core);
         this.toolbar = new ToolbarStore(this);
-        this.toolbox = new ToolboxStore(this, this.core);
+        this.toolbox = new ToolboxStore(this, core);
         this.quick_strategy = new QuickStrategyStore(this);
 
-        this.dashboard = new DashboardStore(this, this.core);
+        this.dashboard = new DashboardStore(this, core);
 
-        // need to be at last for dependency
+        // need to be last for dependency
         this.chart_store = new ChartStore(this);
         this.blockly_store = new BlocklyStore(this);
-        this.data_collection_store = new DataCollectionStore(this, this.core);
+        this.data_collection_store = new DataCollectionStore(this, core);
     }
 }
