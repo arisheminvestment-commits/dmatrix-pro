@@ -46,7 +46,7 @@ strong {
 
 /* ==========================================
    DERIV-STYLE APP LAYOUT, TABS & FOOTER 
-   ================================---------- */
+   ========================================== */
 
 html, body, #root {
     margin: 0;
@@ -124,6 +124,25 @@ html, body, #root {
         display: flex;
         flex-direction: column;
         gap: 20px;
+
+        .tab-pane {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 24px;
+            
+            h2 {
+                margin-top: 0;
+                color: #ffffff;
+                font-size: 18px;
+            }
+
+            p {
+                color: #94a3b8;
+                font-size: 14px;
+                margin-bottom: 0;
+            }
+        }
     }
 }
 
